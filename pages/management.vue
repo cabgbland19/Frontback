@@ -13,7 +13,8 @@
           <h1 v-text="items.length" class="primary--text display-3" />
         </v-card>
 
-        <v-btn class="primary" rounded>Gestionar</v-btn>
+        <Button label="Gestionar" :action="manage" />
+        <Button label="Cancelar" :outlined="true" :action="cancel" />
       </div>
     </v-col>
   </v-row>
@@ -28,6 +29,14 @@ export default {
       viewTitle: "Gestion base de datos",
       items: [],
     };
+  },
+  methods: {
+    manage() {
+      console.log("Gestionar");
+    },
+    cancel() {
+      console.log("Cancelar");
+    },
   },
 };
 </script>
