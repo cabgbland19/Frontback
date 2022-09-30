@@ -1,12 +1,22 @@
 <template>
-  <v-btn color="primary" :outlined="outlined" rounded @click="action()">{{
-    label
-  }}</v-btn>
+  <v-btn
+    color="primary"
+    :outlined="outlined"
+    rounded
+    @click="type !== 'submit' && action()"
+    :type="type"
+    :disabled="disabled"
+    >{{ label }}</v-btn
+  >
 </template>
 
 <script>
 export default {
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     outlined: {
       type: Boolean,
       default: false,
@@ -18,6 +28,10 @@ export default {
     action: {
       type: Function,
       default: () => null,
+    },
+    type: {
+      type: String,
+      default: "button",
     },
   },
 };

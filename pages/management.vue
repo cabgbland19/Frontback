@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" class="primary d-flex justify-center">
+    <!-- <v-col cols="12" class="primary d-flex justify-center">
       <h1 v-text="viewTitle" class="white--text mt-3" />
     </v-col>
     <v-col cols="12" class="d-flex justify-center">
@@ -16,6 +16,10 @@
         <Button label="Gestionar" :action="manage" />
         <Button label="Cancelar" :outlined="true" :action="cancel" />
       </div>
+    </v-col> -->
+    <v-col cols="4"> </v-col>
+    <v-col cols="8">
+      <Form />
     </v-col>
   </v-row>
 </template>
