@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <!-- <v-col cols="12" class="primary d-flex justify-center">
+    <v-col cols="12" class="primary d-flex justify-center">
       <h1 v-text="viewTitle" class="white--text mt-3" />
     </v-col>
     <v-col cols="12" class="d-flex justify-center">
@@ -14,13 +14,14 @@
         </v-card>
 
         <Button label="Gestionar" :action="manage" />
-        <Button label="Cancelar" :outlined="true" :action="cancel" />
+        <!-- <Button label="Cancelar" :outlined="true" :action="cancel" /> -->
       </div>
-    </v-col> -->
-    <v-col cols="4"> </v-col>
-    <v-col cols="8">
-      <Form />
     </v-col>
+    <!-- <v-col cols="4"> </v-col> -->
+    <Dialog :isDialog.sync="isDialog" />
+    <!-- <v-col cols="8">
+      <Form />
+    </v-col> -->
   </v-row>
 </template>
 
@@ -30,13 +31,14 @@ export default {
 
   data() {
     return {
+      isDialog: false,
       viewTitle: "Gestion base de datos",
       items: [],
     };
   },
   methods: {
     manage() {
-      console.log("Gestionar");
+      this.isDialog = true;
     },
     cancel() {
       console.log("Cancelar");
