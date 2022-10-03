@@ -23,20 +23,43 @@
       </v-col>
       <v-col cols="6"><Input label="Cuenta" :readonly="true" /></v-col>
       <v-col cols="6"
-        ><Select label="Contacto" :rules="rules.contact"></Select
+        ><Select
+          label="Contacto"
+          :rules="rules.contact"
+          :items="itemsContacts"
+        ></Select
       ></v-col>
       <v-col cols="6"
         ><Input label="Id de llamada" :rules="rules.callId"
       /></v-col>
       <v-col cols="6"
-        ><Select label="GTC aplica" :rules="rules.gtcApply"></Select
+        ><Select
+          label="GTC aplica"
+          :rules="rules.gtcApply"
+          :items="itemsApplyGtc"
+        ></Select
+      ></v-col>
+      <v-col cols="6"
+        ><Select
+          label="Motivo GTC"
+          :rules="rules.gtcReason"
+          :items="itemsGtcReason"
+        ></Select
       ></v-col>
       <v-col cols="6"> <Input label="Marcacion" :rules="rules.mark" /></v-col>
       <v-col cols="6"
-        ><Select label="Solucionado" :rules="rules.solution"></Select
+        ><Select
+          label="Solucionado"
+          :rules="rules.solution"
+          :items="itemsSolution"
+        ></Select
       ></v-col>
       <v-col cols="6"
-        ><Select label="Tipo de solucion" :rules="rules.typeSolution"></Select
+        ><Select
+          label="Tipo de solucion"
+          :rules="rules.typeSolution"
+          :items="itemsTypeSolution"
+        ></Select
       ></v-col>
       <v-col cols="6"> <Input label="Fecha solucion" :readonly="true" /></v-col>
       <v-col cols="12">
@@ -83,6 +106,7 @@ export default {
         contact: [(v) => !!v || "El campo Contacto es requerido"],
         callId: [(v) => !!v || "El campo Id de llamada es requerido"],
         gtcApply: [(v) => !!v || "El campo GTC aplica es requerido"],
+        gtcReason: [(v) => !!v || "El campo Motivo GTC es requerido"],
         mark: [(v) => !!v || "El campo Marcacion es requerido"],
         solution: [(v) => !!v || "El campo Solucionado es requerido"],
         typeSolution: [(v) => !!v || "El campo Tipo de solucion es requerido"],
@@ -93,6 +117,140 @@ export default {
         monthlyValue: [(v) => !!v || "El campo Valor Mensual es requerido"],
         monthsAdjustments: [(v) => !!v || "El campo Meses ajuste es requerido"],
       },
+      itemsContacts: [
+        {
+          text: "Si",
+          value: "Si",
+        },
+        {
+          text: "No",
+          value: "No",
+        },
+      ],
+      itemsApplyGtc: [
+        {
+          text: "Si",
+          value: "Si",
+        },
+        {
+          text: "No",
+          value: "No",
+        },
+      ],
+      itemsGtcReason: [
+        {
+          text: "NO REALIZA CAMBIO DE TARIFA",
+          value: "NO REALIZA CAMBIO DE TARIFA",
+        },
+        {
+          text: "NO CORRESPONDE A UNO27",
+          value: "NO CORRESPONDE A UNO27",
+        },
+        {
+          text: "NO APLICA CAMPAÑA",
+          value: "NO APLICA CAMPAÑA",
+        },
+        {
+          text: "NO REALIZA AJUSTE",
+          value: "NO REALIZA AJUSTE",
+        },
+        {
+          text: "COBROS ADICIONALES",
+          value: "COBROS ADICIONALES",
+        },
+        {
+          text: "CANCELACION NO EJECUTADA",
+          value: "CANCELACION NO EJECUTADA",
+        },
+        {
+          text: "GTC ESCALADA ERRONEAMENTE",
+          value: "GTC ESCALADA ERRONEAMENTE",
+        },
+        {
+          text: "TARIFA ERRADA",
+          value: "TARIFA ERRADA",
+        },
+        {
+          text: "INFORMACION ERRADA",
+          value: "INFORMACION ERRADA",
+        },
+        {
+          text: "NO REALIZA SUSPENSION",
+          value: "NO REALIZA SUSPENSION",
+        },
+      ],
+      itemsTypeSolution: [
+        {
+          text: "NO CORRESPONDE A UNO27",
+          value: "NO CORRESPONDE A UNO27",
+        },
+        {
+          text: "GTC NO APLICA",
+          value: "GTC NO APLICA",
+        },
+        {
+          text: "SE APLICA CAMPAÑA",
+          value: "SE APLICA CAMPAÑA",
+        },
+        {
+          text: "YA GESTIONADO POR OTRO CANAL",
+          value: "YA GESTIONADO POR OTRO CANAL",
+        },
+        {
+          text: "SE REALIZA AJUSTE",
+          value: "SE REALIZA AJUSTE",
+        },
+        {
+          text: "RETENCION POSTERIOR",
+          value: "RETENCION POSTERIOR",
+        },
+        {
+          text: "SE APLICA CAMBIO DE TARIFA",
+          value: "SE APLICA CAMBIO DE TARIFA",
+        },
+        {
+          text: "CANCELACION POSTERIOR",
+          value: "CANCELACION POSTERIOR",
+        },
+        {
+          text: "SE REALIZA CANCELACION",
+          value: "SE REALIZA CANCELACION",
+        },
+        {
+          text: "SE AGENDA VISITA",
+          value: "SE AGENDA VISITA",
+        },
+        {
+          text: "YA CANCELADO",
+          value: "YA CANCELADO",
+        },
+        {
+          text: "SE GENERA RETENCION CRUZADA",
+          value: "SE GENERA RETENCION CRUZADA",
+        },
+        {
+          text: "ACLARACION DE INFORMACION",
+          value: "ACLARACION DE INFORMACION",
+        },
+        {
+          text: "PROCESO PQR",
+          value: "PROCESO PQR",
+        },
+        {
+          text: "NO ES PROCEDENTE",
+          value: "NO ES PROCEDENTE",
+        },
+      ],
+      itemsSolution: [
+        {
+          text: "Si",
+          value: "Si",
+        },
+        {
+          text: "No",
+          value: "No",
+        },
+      ],
     };
   },
   methods: {
