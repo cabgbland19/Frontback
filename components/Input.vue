@@ -1,10 +1,12 @@
 <template>
   <v-text-field
+    v-model="localModel"
     rounded
     outlined
     :label="label"
     :readonly="readonly"
     :rules="rules"
+    :type="type"
   />
 </template>
 
@@ -22,6 +24,27 @@ export default {
     rules: {
       type: Array,
       default: () => [],
+    },
+    type: {
+      type: String,
+      default: "text",
+    },
+    model: {
+      type: String,
+      default: null,
+    },
+  },
+  data() {
+    return {
+      localModel: this.model,
+    };
+  },
+  watch: {
+    model(val) {
+      this.localModel = val;
+    },
+    localModel(val) {
+      this.$emit("update:model", val);
     },
   },
 };

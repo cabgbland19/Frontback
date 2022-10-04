@@ -65,7 +65,7 @@
 
           <v-row>
             <!-- <v-col cols="4"></v-col> -->
-            <v-col cols="12"><Form /></v-col>
+            <v-col cols="12"><Form nameForm="manage" /></v-col>
           </v-row>
         </v-card-text>
         <v-card-actions>
