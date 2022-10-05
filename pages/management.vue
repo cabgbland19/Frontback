@@ -28,6 +28,7 @@
 <script>
 export default {
   layout: "empty",
+  middleware: "auth",
 
   data() {
     return {

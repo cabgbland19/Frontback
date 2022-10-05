@@ -2,10 +2,19 @@
   <v-form @submit.prevent="sendform" v-model="isFormValid">
     <v-row>
       <v-col cols="12">
-        <Input label="Usuario" :rules="rules.user" :model.sync="user" />
+        <Input
+          label="Usuario"
+          :rules="rules.user"
+          :model.sync="user.username"
+        />
       </v-col>
       <v-col cols="12">
-        <Input label="Contraseña" :rules="rules.password" type="password" />
+        <Input
+          label="Contraseña"
+          :rules="rules.password"
+          type="password"
+          :model.sync="user.password"
+        />
       </v-col>
       <v-col cols="12" class="d-flex justify-center">
         <Button label="Ingresar" :disabled="!isFormValid" type="submit" />
@@ -15,6 +24,8 @@
 </template>
 
 <script>
+import { LoginController } from "~/controllers/login.controller";
+
 export default {
   data() {
     return {
@@ -26,12 +37,19 @@ export default {
         ],
         password: [(v) => !!v || "El campo Contraseña es requerido"],
       },
-      user: "",
+      user: {
+        username: "",
+        password: "",
+      },
     };
   },
   methods: {
+    postLogin: LoginController.post.login,
+
     sendform() {
-      $nuxt.$router.push({ name: "management" });
+      // $nuxt.$router.push({ name: "management" });
+
+      this.postLogin(this.user);
     },
   },
   watch: {
@@ -39,8 +57,10 @@ export default {
       this.$nextTick(() => {
         this.user = isNaN(val) ? val : null;
       });
-      console.log(val);
     },
+  },
+  mounted() {
+    $nuxt.$store.dispatch("localStorage/actResetState");
   },
 };
 </script>
