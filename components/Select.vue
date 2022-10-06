@@ -1,5 +1,12 @@
 <template>
-  <v-select :label="label" rounded outlined :rules="rules" :items="items" />
+  <v-select
+    :label="label"
+    rounded
+    outlined
+    :rules="rules"
+    :items="items"
+    v-model="localModel"
+  />
 </template>
 
 <script>
@@ -16,6 +23,23 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    model: {
+      type: [String, Number],
+      default: null,
+    },
+  },
+  data() {
+    return {
+      localModel: this.model,
+    };
+  },
+  watch: {
+    model(val) {
+      this.localModel = val;
+    },
+    localModel(val) {
+      this.$emit("update:model", val);
     },
   },
 };

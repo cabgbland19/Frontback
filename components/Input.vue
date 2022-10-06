@@ -30,7 +30,7 @@ export default {
       default: "text",
     },
     model: {
-      type: String,
+      type: [String, Number],
       default: null,
     },
   },

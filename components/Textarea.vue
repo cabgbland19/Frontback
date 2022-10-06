@@ -1,5 +1,11 @@
 <template>
-  <v-textarea :label="label" rounded outlined :rules="rules" />
+  <v-textarea
+    :label="label"
+    rounded
+    outlined
+    :rules="rules"
+    v-model="localModel"
+  />
 </template>
 
 <script>
@@ -12,6 +18,23 @@ export default {
     rules: {
       type: Array,
       default: () => [],
+    },
+    model: {
+      type: [String, Number],
+      default: null,
+    },
+  },
+  data() {
+    return {
+      localModel: this.model,
+    };
+  },
+  watch: {
+    model(val) {
+      this.localModel = val;
+    },
+    localModel(val) {
+      this.$emit("update:model", val);
     },
   },
 };

@@ -10,7 +10,10 @@
           height="350"
           class="rounded-circle d-flex flex-row justify-center align-center mt-12 mb-15"
         >
-          <h1 v-text="items.length" class="primary--text display-3" />
+          <h1
+            v-text="itemsDataGestion.length"
+            class="primary--text display-3"
+          />
         </v-card>
 
         <Button label="Gestionar" :action="manage" />
@@ -24,8 +27,8 @@
     </v-col> -->
   </v-row>
 </template>
-
 <script>
+import { RecievedController } from "~/controllers/gtc/recieved.controller";
 export default {
   layout: "empty",
   middleware: "auth",
@@ -37,12 +40,40 @@ export default {
       items: [],
     };
   },
+  async fetch() {
+    const data = await this.getRecievedBase();
+    this.items = data.rows;
+  },
   methods: {
+    getRecievedBase: RecievedController.get.recievedbase,
     manage() {
       this.isDialog = true;
+      const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
+      // $nuxt.$emit("register", register);
+      const { cuenta, periodo, notas_gtc } = register;
+
+      const dataGestion = { cuenta, periodo, notas_gtc };
+      // dataGestion.forEach((v) => {
+      //   console.log(v);
+      //   // $nuxt.$store.dispatch("localStorage/actUpdateValue", {
+      //   //   key: "",
+      //   //   value: data.token,
+      //   // });
+      // });
+      for (const key in dataGestion) {
+        $nuxt.$store.dispatch("app/actUpdateValue", {
+          key: key,
+          value: dataGestion[key],
+        });
+      }
     },
     cancel() {
       console.log("Cancelar");
+    },
+  },
+  computed: {
+    itemsDataGestion() {
+      return this.items.filter((v) => v.is_active === false);
     },
   },
 };

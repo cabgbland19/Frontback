@@ -2,97 +2,175 @@
   <v-form @submit.prevent="sendform" v-model="isFormValid">
     Gestion GTC
     <v-row>
-      <!-- Informacion del asesor -->
-      <v-col cols="12" class="d-flex justify-center"
-        ><h1 class="primary--text">Informacion del asesor</h1>
+      <v-col cols="5">
+        <v-card
+          max-height="500"
+          class="mt-15 d-flex align-center justify-center rounded-xl"
+          style="height: 100vh"
+          color="#1178640F"
+        >
+          <v-row>
+            <v-col cols="12" class="mb-5 text-center">
+              <h3 class="primary--text">MCH Cuenta</h3>
+              <span>{{ cuenta }}</span>
+            </v-col>
+            <v-col cols="12" class="mb-5 text-center">
+              <h3 class="primary--text">Periodo</h3>
+              <span>{{ periodo }}</span>
+            </v-col>
+            <v-col cols="12" class="text-center">
+              <h3 class="primary--text">Nota</h3>
+              <span>{{ notas_gtc }}</span>
+            </v-col>
+          </v-row>
+        </v-card>
       </v-col>
-      <v-col cols="6"><Input label="Gestor" :readonly="true" /></v-col>
-      <v-col cols="6"
-        ><Input label="Usuario de red" :rules="rules.userRed"
-      /></v-col>
-      <v-col cols="6"
-        ><Input label="Nombre del asesor" :rules="rules.asesorName"
-      /></v-col>
-      <v-col cols="6"
-        ><Input label="Team leader" :rules="rules.teamLeader"
-      /></v-col>
-      <v-col cols="6"> <Input label="Gerente" :rules="rules.boss" /></v-col>
-      <!-- Informacion de la gestion-->
-      <v-col cols="12" class="d-flex justify-center"
-        ><h1 class="primary--text">Informacion de la gestion</h1>
-      </v-col>
-      <v-col cols="6"><Input label="Cuenta" :readonly="true" /></v-col>
-      <v-col cols="6"
-        ><Select
-          label="Contacto"
-          :rules="rules.contact"
-          :items="itemsContacts"
-        ></Select
-      ></v-col>
-      <v-col cols="6"
-        ><Input label="Id de llamada" :rules="rules.callId"
-      /></v-col>
-      <v-col cols="6"
-        ><Select
-          label="GTC aplica"
-          :rules="rules.gtcApply"
-          :items="itemsApplyGtc"
-        ></Select
-      ></v-col>
-      <v-col cols="6"
-        ><Select
-          label="Motivo GTC"
-          :rules="rules.gtcReason"
-          :items="itemsGtcReason"
-        ></Select
-      ></v-col>
-      <v-col cols="6"> <Input label="Marcacion" :rules="rules.mark" /></v-col>
-      <v-col cols="6"
-        ><Select
-          label="Solucionado"
-          :rules="rules.solution"
-          :items="itemsSolution"
-        ></Select
-      ></v-col>
-      <v-col cols="6"
-        ><Select
-          label="Tipo de solucion"
-          :rules="rules.typeSolution"
-          :items="itemsTypeSolution"
-        ></Select
-      ></v-col>
-      <v-col cols="6"> <Input label="Fecha solucion" :readonly="true" /></v-col>
-      <v-col cols="12">
-        <Textarea label="Observacion" :rules="rules.observation"></Textarea
-      ></v-col>
+      <v-col>
+        <v-row>
+          <!-- Informacion del asesor -->
+          <v-col cols="12" class="d-flex justify-center"
+            ><h1 class="primary--text">Informacion del asesor</h1>
+          </v-col>
+          <v-col cols="6"
+            ><Input label="Gestor" :readonly="true" :model.sync="model.gestor"
+          /></v-col>
+          <v-col cols="6"
+            ><Input
+              label="Usuario de red"
+              :rules="rules.userRed"
+              :model.sync="model.usuario_de_red"
+          /></v-col>
+          <v-col cols="6"
+            ><Input
+              label="Nombre del asesor"
+              :rules="rules.asesorName"
+              :model.sync="model.nombre_asesor"
+          /></v-col>
+          <v-col cols="6"
+            ><Input
+              label="Team leader"
+              :rules="rules.teamLeader"
+              :model.sync="model.team_leader"
+          /></v-col>
+          <v-col cols="6">
+            <Input
+              label="Gerente"
+              :rules="rules.boss"
+              :model.sync="model.gerente"
+          /></v-col>
+          <!-- Informacion de la gestion-->
+          <v-col cols="12" class="d-flex justify-center"
+            ><h1 class="primary--text">Informacion de la gestion</h1>
+          </v-col>
+          <v-col cols="6"
+            ><Input label="Cuenta" :readonly="true" :model.sync="model.cuenta"
+          /></v-col>
+          <v-col cols="6"
+            ><Select
+              label="Contacto"
+              :rules="rules.contact"
+              :items="itemsContacts"
+              :model.sync="model.contacto"
+            ></Select
+          ></v-col>
+          <v-col cols="6"
+            ><Input
+              label="Id de llamada"
+              :rules="rules.callId"
+              :model.sync="model.id_llamada"
+          /></v-col>
+          <v-col cols="6"
+            ><Select
+              label="GTC aplica"
+              :rules="rules.gtcApply"
+              :items="itemsApplyGtc"
+              :model.sync="model.gtcaplica"
+            ></Select
+          ></v-col>
+          <v-col cols="6"
+            ><Select
+              label="Motivo GTC"
+              :rules="rules.gtcReason"
+              :items="itemsGtcReason"
+              :model.sync="model.motivo_gtc"
+            ></Select
+          ></v-col>
+          <v-col cols="6">
+            <Input
+              label="Marcacion"
+              :rules="rules.mark"
+              :model.sync="model.marcacion"
+          /></v-col>
+          <v-col cols="6"
+            ><Select
+              label="Solucionado"
+              :rules="rules.solution"
+              :items="itemsSolution"
+              :model.sync="model.solucionado"
+            ></Select
+          ></v-col>
+          <v-col cols="6"
+            ><Select
+              label="Tipo de solucion"
+              :rules="rules.typeSolution"
+              :items="itemsTypeSolution"
+              :model.sync="model.tipo_solucion"
+            ></Select
+          ></v-col>
+          <v-col cols="6">
+            <Input
+              label="Fecha solucion"
+              :readonly="true"
+              :model.sync="model.fecha_solcionado"
+          /></v-col>
+          <v-col cols="12">
+            <Textarea
+              label="Observacion"
+              :rules="rules.observation"
+              :model.sync="model.campo_observacion"
+            ></Textarea
+          ></v-col>
 
-      <!-- Ajuste-->
-      <v-col cols="12" class="d-flex justify-center"
-        ><h1 class="primary--text">Ajuste:</h1>
-      </v-col>
-      <v-col cols="6"
-        ><Input label="Valor diferencial" :rules="rules.differenceValue"
-      /></v-col>
-      <v-col cols="6"
-        ><Input label="Valor Mensual" :rules="rules.monthlyValue"
-      /></v-col>
-      <v-col cols="6"
-        ><Input label="Meses ajuste" :rules="rules.monthsAdjustments"
-      /></v-col>
+          <!-- Ajuste-->
+          <v-col cols="12" class="d-flex justify-center"
+            ><h1 class="primary--text">Ajuste:</h1>
+          </v-col>
+          <v-col cols="6"
+            ><Input
+              label="Valor diferencial"
+              :rules="rules.differenceValue"
+              :model.sync="model.valor_diferencial"
+          /></v-col>
+          <v-col cols="6"
+            ><Input
+              label="Valor Mensual"
+              :rules="rules.monthlyValue"
+              :model.sync="model.valor_mensual"
+          /></v-col>
+          <v-col cols="6"
+            ><Input
+              label="Meses ajuste"
+              :rules="rules.monthsAdjustments"
+              :model.sync="model.meses_ajuste"
+          /></v-col>
 
-      <v-col cols="12">
-        <Button
-          label="Enviar"
-          class="float-right"
-          type="submit"
-          :disabled="!isFormValid"
-        />
+          <v-col cols="12">
+            <Button
+              label="Enviar"
+              class="float-right"
+              type="submit"
+              :disabled="!isFormValid"
+            />
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-form>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { SubmitController } from "~/controllers/gtc/submit.controller";
 export default {
   data() {
     return {
@@ -251,12 +329,50 @@ export default {
           value: "No",
         },
       ],
+      model: {
+        cuenta: null,
+        contacto: null,
+        gtcaplica: null,
+        tipo_solucion: null,
+        motivo_gtc: null,
+        campo_observacion: null,
+        valor_diferencial: null,
+        marcacion: null,
+        solucionado: null,
+        fecha_solcionado: new Date().toISOString().split("T")[0],
+        gestor: null,
+        valor_mensual: null,
+        meses_ajuste: null,
+        id_llamada: null,
+        usuario_de_red: null,
+        nombre_asesor: null,
+        team_leader: null,
+        gerente: null,
+      },
     };
   },
   methods: {
+    postGestion: SubmitController.post.gestion,
+
     sendform() {
-      console.log("ok");
+      this.postGestion(this.model);
     },
+  },
+  // mounted() {
+  //   this.$nextTick(() => {
+  //     $nuxt.$on("register", (val) => {
+  //       this.model = val;
+  //       console.log(val);
+  //     });
+  //   });
+  // },
+  computed: {
+    ...mapState("app", ["cuenta", "periodo", "notas_gtc"]),
+    ...mapState("localStorage", ["username"]),
+  },
+  created() {
+    this.model.cuenta = this.cuenta;
+    this.model.gestor = this.username.username;
   },
 };
 </script>
