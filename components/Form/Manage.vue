@@ -2,6 +2,7 @@
   <v-form @submit.prevent="sendform" v-model="isFormValid">
     Gestion GTC
     <v-row>
+      <!-- Informacion de la gestion -->
       <v-col cols="5">
         <v-card
           max-height="500"
@@ -25,6 +26,7 @@
           </v-row>
         </v-card>
       </v-col>
+      <!-- Formulario -->
       <v-col>
         <v-row>
           <!-- Informacion del asesor -->
@@ -171,29 +173,58 @@
 <script>
 import { mapState } from "vuex";
 import { SubmitController } from "~/controllers/gtc/submit.controller";
+import Regex from "~/plugins/regex.js";
+
 export default {
   data() {
     return {
       isFormValid: true,
       rules: {
-        userRed: [(v) => !!v || "El campo usuario de red es requerido"],
-        asesorName: [(v) => !!v || "El campo Nombre del asesor es requerido"],
-        teamLeader: [(v) => !!v || "El campo Team leader es requerido"],
-        boss: [(v) => !!v || "El campo Gerente es requerido"],
+        userRed: [
+          (v) => !!v || "El campo usuario de red es requerido",
+          (v) =>
+            Regex.onlylettersAndNumbers.test(v) ||
+            "Solo se aceptan letras y numeros",
+        ],
+        asesorName: [
+          (v) => !!v || "El campo Nombre del asesor es requerido",
+          (v) => Regex.onlyLetters.test(v) || "Solo se aceptan letras",
+        ],
+        teamLeader: [
+          (v) => !!v || "El campo Team leader es requerido",
+          (v) => Regex.onlyLetters.test(v) || "Solo se aceptan letras",
+        ],
+        boss: [
+          (v) => !!v || "El campo Gerente es requerido",
+          (v) => Regex.onlyLetters.test(v) || "Solo se aceptan letras",
+        ],
         account: [(v) => !!v || "El campo Cuenta es requerido"],
         contact: [(v) => !!v || "El campo Contacto es requerido"],
-        callId: [(v) => !!v || "El campo Id de llamada es requerido"],
+        callId: [
+          (v) => !!v || "El campo Id de llamada es requerido",
+          (v) => Regex.onlyNumber.test(v) || "Solo se aceptan numeros",
+        ],
         gtcApply: [(v) => !!v || "El campo GTC aplica es requerido"],
         gtcReason: [(v) => !!v || "El campo Motivo GTC es requerido"],
-        mark: [(v) => !!v || "El campo Marcacion es requerido"],
+        mark: [
+          (v) => !!v || "El campo Marcacion es requerido",
+          (v) => Regex.onlyLetters.test(v) || "Solo se aceptan letras",
+        ],
         solution: [(v) => !!v || "El campo Solucionado es requerido"],
         typeSolution: [(v) => !!v || "El campo Tipo de solucion es requerido"],
         observation: [(v) => !!v || "El campo Observacion es requerido"],
         differenceValue: [
           (v) => !!v || "El campo Valor diferencial es requerido",
+          (v) => Regex.onlyNumber.test(v) || "Solo se aceptan numeros",
         ],
-        monthlyValue: [(v) => !!v || "El campo Valor Mensual es requerido"],
-        monthsAdjustments: [(v) => !!v || "El campo Meses ajuste es requerido"],
+        monthlyValue: [
+          (v) => !!v || "El campo Valor Mensual es requerido",
+          (v) => Regex.onlyNumber.test(v) || "Solo se aceptan numeros",
+        ],
+        monthsAdjustments: [
+          (v) => !!v || "El campo Meses ajuste es requerido",
+          (v) => Regex.onlyNumber.test(v) || "Solo se aceptan numeros",
+        ],
       },
       itemsContacts: [
         {
@@ -358,14 +389,7 @@ export default {
       this.postGestion(this.model);
     },
   },
-  // mounted() {
-  //   this.$nextTick(() => {
-  //     $nuxt.$on("register", (val) => {
-  //       this.model = val;
-  //       console.log(val);
-  //     });
-  //   });
-  // },
+
   computed: {
     ...mapState("app", ["cuenta", "periodo", "notas_gtc"]),
     ...mapState("localStorage", ["username"]),
