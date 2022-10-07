@@ -11,7 +11,7 @@ const Regex = {};
 Regex.onlyNumber = /^[0-9]+$/;
 
 /* Solo letras y espacios */
-Regex.onlyLetters = /^[a-z A-Z ]+$/;
+Regex.onlyLetters = /^[a-zñA-ZÑ ]+$/;
 
 /* Solo letras y no espacios */
 // Regex.lettersAndNotSpaces = /^[a-z A-Z]+$/;

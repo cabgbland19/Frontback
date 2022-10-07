@@ -7,6 +7,7 @@
     :readonly="readonly"
     :rules="rules"
     :type="type"
+    dense
   />
 </template>
 

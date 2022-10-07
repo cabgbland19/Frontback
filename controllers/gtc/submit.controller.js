@@ -4,10 +4,7 @@ export const SubmitController = {
       const { data } = await $nuxt.$api.post("bases/enviar/", payload);
 
       if (data) {
-        $nuxt.$store.dispatch("app/actUpdateValue", {
-          key: "isDialog",
-          value: false,
-        });
+        $nuxt.$router.push({ name: "management" });
       }
 
       //   if (data.token) {

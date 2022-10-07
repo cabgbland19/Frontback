@@ -1,37 +1,30 @@
 <template>
-  <v-form ref="form" @submit.prevent="sendform" v-model="isFormValid">
-    Gestion GTC
-    <v-row>
-      <!-- Informacion de la gestion -->
-      <v-col cols="5">
-        <v-card
-          max-height="500"
-          class="mt-15 d-flex align-center justify-center rounded-xl"
-          style="height: 100vh"
-          color="#1178640F"
-        >
-          <v-row>
-            <v-col cols="12" class="mb-5 text-center">
-              <h3 class="primary--text">MCH Cuenta</h3>
-              <span>{{ cuenta }}</span>
-            </v-col>
-            <v-col cols="12" class="mb-5 text-center">
-              <h3 class="primary--text">Periodo</h3>
-              <span>{{ periodo }}</span>
-            </v-col>
-            <v-col cols="12" class="text-center">
-              <h3 class="primary--text">Nota</h3>
-              <span>{{ notas_gtc }}</span>
-            </v-col>
-          </v-row>
-        </v-card>
-      </v-col>
-      <!-- Formulario -->
-      <v-col>
+  <v-row class="ma-0">
+    <v-col
+      class="d-flex justify-center align-center"
+      style="background: #1178640f"
+    >
+      <v-row>
+        <v-col cols="12" class="mb-5 text-center">
+          <h3 class="primary--text">MCH Cuenta</h3>
+          <span>{{ cuenta }}</span>
+        </v-col>
+        <v-col cols="12" class="mb-5 text-center">
+          <h3 class="primary--text">Periodo</h3>
+          <span>{{ periodo }}</span>
+        </v-col>
+        <v-col cols="12" class="text-center px-15">
+          <h3 class="primary--text">Nota</h3>
+          <span>{{ notas_gtc }}</span>
+        </v-col>
+      </v-row>
+    </v-col>
+    <v-col style="height: 100vh; overflow-y: scroll">
+      <v-form ref="form" @submit.prevent="sendform" v-model="isFormValid">
+        <!-- Informacion del asesor -->
         <v-row>
-          <!-- Informacion del asesor -->
           <v-col cols="12" class="d-flex justify-center"
-            ><h1 class="primary--text">Informacion del asesor</h1>
+            ><h2 class="primary--text">Informacion del asesor</h2>
           </v-col>
           <v-col cols="6"
             ><Input label="Gestor" :readonly="true" :model.sync="model.gestor"
@@ -60,9 +53,11 @@
               :rules="rules.boss"
               :model.sync="model.gerente"
           /></v-col>
-          <!-- Informacion de la gestion-->
+        </v-row>
+        <!-- Informacion de la gestion-->
+        <v-row>
           <v-col cols="12" class="d-flex justify-center"
-            ><h1 class="primary--text">Informacion de la gestion</h1>
+            ><h2 class="primary--text">Informacion de la gestion</h2>
           </v-col>
           <v-col cols="6"
             ><Input label="Cuenta" :readonly="true" :model.sync="model.cuenta"
@@ -132,10 +127,11 @@
               :model.sync="model.campo_observacion"
             ></Textarea
           ></v-col>
-
-          <!-- Ajuste-->
+        </v-row>
+        <!-- Ajuste -->
+        <v-row>
           <v-col cols="12" class="d-flex justify-center"
-            ><h1 class="primary--text">Ajuste:</h1>
+            ><h2 class="primary--text">Ajuste:</h2>
           </v-col>
           <v-col cols="6"
             ><Input
@@ -155,7 +151,6 @@
               :rules="rules.monthsAdjustments"
               :model.sync="model.meses_ajuste"
           /></v-col>
-
           <v-col cols="12">
             <Button
               label="Enviar"
@@ -165,9 +160,9 @@
             />
           </v-col>
         </v-row>
-      </v-col>
-    </v-row>
-  </v-form>
+      </v-form>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

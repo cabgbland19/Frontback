@@ -6,6 +6,7 @@
     :rules="rules"
     :items="items"
     v-model="localModel"
+    dense
   />
 </template>
 

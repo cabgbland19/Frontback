@@ -49,24 +49,17 @@ export default {
     putRecievedBase: RecievedController.put.recievedbase,
 
     manage() {
-      $nuxt.$store.dispatch("app/actUpdateValue", {
-        key: "isDialog",
-        value: true,
-      });
       const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
-
       const { cuenta, periodo, notas_gtc } = register;
-
       const dataGestion = { cuenta, periodo, notas_gtc };
-
       for (const key in dataGestion) {
         $nuxt.$store.dispatch("app/actUpdateValue", {
           key: key,
           value: dataGestion[key],
         });
       }
-
       this.putRecievedBase(register);
+      $nuxt.$router.push({ name: "managementForm" });
     },
     cancel() {
       console.log("Cancelar");
