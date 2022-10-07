@@ -24,5 +24,10 @@ export const LoginController = {
         });
       }
     },
+    logout: async (token) => {
+      await $nuxt.$api.post(`logout/?token=${token}`);
+      $nuxt.$router.push({ name: "index" });
+      $nuxt.$store.dispatch("localStorage/actResetState");
+    },
   },
 };

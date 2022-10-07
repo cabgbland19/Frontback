@@ -2,6 +2,17 @@
   <v-row>
     <v-col cols="12" class="primary d-flex justify-center">
       <h1 v-text="viewTitle" class="white--text mt-3" />
+      <v-btn
+        class="ma-2 mt-4 white"
+        color="primary"
+        outlined
+        rounded
+        @click="logout"
+        style="position: absolute; right: 0"
+      >
+        Cerrar sesion
+        <v-icon right> mdi-exit-run </v-icon>
+      </v-btn>
     </v-col>
     <v-col cols="12" class="d-flex justify-center">
       <div class="text-center">
@@ -28,8 +39,10 @@
   </v-row>
 </template>
 <script>
+import { mapState } from "vuex";
 import { RecievedController } from "~/controllers/gtc/recieved.controller";
 import { Sweetalert } from "~/assets/sweetalert";
+import { LoginController } from "~/controllers/login.controller";
 
 export default {
   layout: "empty",
@@ -48,14 +61,11 @@ export default {
   methods: {
     getRecievedBase: RecievedController.get.recievedbase,
     putRecievedBase: RecievedController.put.recievedbase,
+    postLogout: LoginController.post.logout,
 
     manage() {
       const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
       if (register) {
-        console.log(
-          "🚀 ~ file: management.vue ~ line 55 ~ manage ~ register",
-          register
-        );
         const { cuenta, periodo, notas_gtc } = register;
         const dataGestion = { cuenta, periodo, notas_gtc };
         for (const key in dataGestion) {
@@ -79,8 +89,13 @@ export default {
     cancel() {
       console.log("Cancelar");
     },
+    logout() {
+      this.postLogout(this.token);
+    },
   },
   computed: {
+    ...mapState("localStorage", ["token"]),
+
     itemsDataGestion() {
       return this.items.filter((v) => v.is_active === false);
     },
