@@ -29,6 +29,7 @@
 </template>
 <script>
 import { RecievedController } from "~/controllers/gtc/recieved.controller";
+import { Sweetalert } from "~/assets/sweetalert";
 
 export default {
   layout: "empty",
@@ -50,16 +51,30 @@ export default {
 
     manage() {
       const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
-      const { cuenta, periodo, notas_gtc } = register;
-      const dataGestion = { cuenta, periodo, notas_gtc };
-      for (const key in dataGestion) {
-        $nuxt.$store.dispatch("app/actUpdateValue", {
-          key: key,
-          value: dataGestion[key],
+      if (register) {
+        console.log(
+          "🚀 ~ file: management.vue ~ line 55 ~ manage ~ register",
+          register
+        );
+        const { cuenta, periodo, notas_gtc } = register;
+        const dataGestion = { cuenta, periodo, notas_gtc };
+        for (const key in dataGestion) {
+          $nuxt.$store.dispatch("app/actUpdateValue", {
+            key: key,
+            value: dataGestion[key],
+          });
+        }
+        this.putRecievedBase(register);
+        $nuxt.$router.push({ name: "managementForm" });
+      } else {
+        Sweetalert.alert({
+          icon: "warning",
+          title: "Ups!",
+          text: "No hay gestiones disponibles",
+          timer: 1500,
+          showConfirmButton: false,
         });
       }
-      this.putRecievedBase(register);
-      $nuxt.$router.push({ name: "managementForm" });
     },
     cancel() {
       console.log("Cancelar");

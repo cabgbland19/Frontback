@@ -1,9 +1,10 @@
+import { Sweetalert } from "~/assets/sweetalert";
+
 export const LoginController = {
   post: {
     login: async (payload) => {
-      const { data } = await $nuxt.$api.post("login/", payload);
-
-      if (data.token) {
+      try {
+        const { data } = await $nuxt.$api.post("login/", payload);
         $nuxt.$store.dispatch("localStorage/actUpdateValue", {
           key: "token",
           value: data.token,
@@ -13,6 +14,14 @@ export const LoginController = {
           value: data.username,
         });
         $nuxt.$router.push({ name: "management" });
+      } catch (error) {
+        Sweetalert.alert({
+          icon: "error",
+          title: "Ups!",
+          text: "Usuario o contraseña incorrecta",
+          timer: 1500,
+          showConfirmButton: false,
+        });
       }
     },
   },
