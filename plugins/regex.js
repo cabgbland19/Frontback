@@ -14,10 +14,13 @@ Regex.onlyNumber = /^[0-9]+$/;
 Regex.onlyLetters = /^[a-z A-Z ]+$/;
 
 /* Solo letras y no espacios */
-Regex.lettersAndNotSpaces = /^[a-z A-Z]+$/;
+// Regex.lettersAndNotSpaces = /^[a-z A-Z]+$/;
 
 /* Solo letras y no espacios */
 Regex.onlylettersAndNumbers = /^[0-9a-zñA-ZÑ]+$/;
+
+/* Solo letras, numeros y espacios */
+Regex.onlylettersNumbersAndSpaces = /^[0-9a-zñA-ZÑ ]+$/;
 
 /* Email */
 Regex.email = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;

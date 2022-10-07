@@ -212,7 +212,12 @@ export default {
         ],
         solution: [(v) => !!v || "El campo Solucionado es requerido"],
         typeSolution: [(v) => !!v || "El campo Tipo de solucion es requerido"],
-        observation: [(v) => !!v || "El campo Observacion es requerido"],
+        observation: [
+          (v) => !!v || "El campo Observacion es requerido",
+          (v) =>
+            Regex.onlylettersNumbersAndSpaces.test(v) ||
+            "Solo se aceptan letras y numeros",
+        ],
         differenceValue: [
           (v) => !!v || "El campo Valor diferencial es requerido",
           (v) => Regex.onlyNumber.test(v) || "Solo se aceptan numeros",
@@ -228,22 +233,22 @@ export default {
       },
       itemsContacts: [
         {
-          text: "Si",
-          value: "Si",
+          text: "SI",
+          value: "SI",
         },
         {
-          text: "No",
-          value: "No",
+          text: "NO",
+          value: "NO",
         },
       ],
       itemsApplyGtc: [
         {
-          text: "Si",
-          value: "Si",
+          text: "SI",
+          value: "SI",
         },
         {
-          text: "No",
-          value: "No",
+          text: "NO",
+          value: "NO",
         },
       ],
       itemsGtcReason: [
@@ -352,12 +357,12 @@ export default {
       ],
       itemsSolution: [
         {
-          text: "Si",
-          value: "Si",
+          text: "SI",
+          value: "SI",
         },
         {
-          text: "No",
-          value: "No",
+          text: "NO",
+          value: "NO",
         },
       ],
       model: {
@@ -382,6 +387,7 @@ export default {
       },
     };
   },
+
   methods: {
     postGestion: SubmitController.post.gestion,
 
@@ -394,9 +400,34 @@ export default {
     ...mapState("app", ["cuenta", "periodo", "notas_gtc"]),
     ...mapState("localStorage", ["username"]),
   },
+
   created() {
     this.model.cuenta = this.cuenta;
     this.model.gestor = this.username.username;
+  },
+
+  watch: {
+    "model.gestor"(val) {
+      this.model.gestor = val.toUpperCase();
+    },
+    "model.usuario_de_red"(val) {
+      this.model.usuario_de_red = val.toUpperCase();
+    },
+    "model.nombre_asesor"(val) {
+      this.model.nombre_asesor = val.toUpperCase();
+    },
+    "model.team_leader"(val) {
+      this.model.team_leader = val.toUpperCase();
+    },
+    "model.gerente"(val) {
+      this.model.gerente = val.toUpperCase();
+    },
+    "model.marcacion"(val) {
+      this.model.marcacion = val.toUpperCase();
+    },
+    "model.campo_observacion"(val) {
+      this.model.campo_observacion = val.toUpperCase();
+    },
   },
 };
 </script>
