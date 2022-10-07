@@ -29,6 +29,7 @@
 </template>
 <script>
 import { RecievedController } from "~/controllers/gtc/recieved.controller";
+
 export default {
   layout: "empty",
   middleware: "auth",
@@ -46,26 +47,24 @@ export default {
   },
   methods: {
     getRecievedBase: RecievedController.get.recievedbase,
+    putRecievedBase: RecievedController.put.recievedbase,
+
     manage() {
       this.isDialog = true;
       const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
-      // $nuxt.$emit("register", register);
+
       const { cuenta, periodo, notas_gtc } = register;
 
       const dataGestion = { cuenta, periodo, notas_gtc };
-      // dataGestion.forEach((v) => {
-      //   console.log(v);
-      //   // $nuxt.$store.dispatch("localStorage/actUpdateValue", {
-      //   //   key: "",
-      //   //   value: data.token,
-      //   // });
-      // });
+
       for (const key in dataGestion) {
         $nuxt.$store.dispatch("app/actUpdateValue", {
           key: key,
           value: dataGestion[key],
         });
       }
+
+      this.putRecievedBase(register);
     },
     cancel() {
       console.log("Cancelar");
