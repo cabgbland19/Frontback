@@ -2,7 +2,13 @@ export const SubmitController = {
   post: {
     gestion: async (payload) => {
       const { data } = await $nuxt.$api.post("bases/enviar/", payload);
-      console.log(data);
+
+      if (data) {
+        $nuxt.$store.dispatch("app/actUpdateValue", {
+          key: "isDialog",
+          value: false,
+        });
+      }
 
       //   if (data.token) {
       //     $nuxt.$store.dispatch("localStorage/actUpdateValue", {

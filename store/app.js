@@ -2,6 +2,7 @@ export const state = () => ({
   cuenta: null,
   periodo: null,
   notas_gtc: null,
+  isDialog: false,
 });
 
 export const mutations = {

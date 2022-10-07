@@ -21,7 +21,7 @@
       </div>
     </v-col>
     <!-- <v-col cols="4"> </v-col> -->
-    <Dialog :isDialog.sync="isDialog" />
+    <Dialog />
     <!-- <v-col cols="8">
       <Form />
     </v-col> -->
@@ -36,7 +36,6 @@ export default {
 
   data() {
     return {
-      isDialog: false,
       viewTitle: "Gestion base de datos",
       items: [],
     };
@@ -50,7 +49,10 @@ export default {
     putRecievedBase: RecievedController.put.recievedbase,
 
     manage() {
-      this.isDialog = true;
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "isDialog",
+        value: true,
+      });
       const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
 
       const { cuenta, periodo, notas_gtc } = register;

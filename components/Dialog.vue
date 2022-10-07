@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="localIsDialog" persistent max-width="2000px">
+    <v-dialog v-model="isDialog" persistent max-width="2000px">
       <v-card>
         <!-- <v-card-title>
           <span class="text-h5">User Profile</span>
@@ -68,31 +68,26 @@
             <v-col cols="12"><Form nameForm="manage" /></v-col>
           </v-row>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="localIsDialog = false">
-            Close
-          </v-btn>
-          <v-btn color="blue darken-1" text @click="localIsDialog = false">
-            Save
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
-  props: {
-    isDialog: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  // props: {
+  //   isDialog: {
+  //     type: Boolean,
+  //     default: false,
+  //   },
+  // },
+
   data: () => ({
     localIsDialog: false,
   }),
+
   watch: {
     isDialog(val) {
       this.localIsDialog = val;
@@ -100,6 +95,10 @@ export default {
     localIsDialog(val) {
       this.$emit("update:isDialog", val);
     },
+  },
+
+  computed: {
+    ...mapState("app", ["isDialog"]),
   },
 };
 </script>

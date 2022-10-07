@@ -1,5 +1,5 @@
 <template>
-  <v-form @submit.prevent="sendform" v-model="isFormValid">
+  <v-form ref="form" @submit.prevent="sendform" v-model="isFormValid">
     Gestion GTC
     <v-row>
       <!-- Informacion de la gestion -->
@@ -393,6 +393,7 @@ export default {
 
     sendform() {
       this.postGestion(this.model);
+      this.$refs.form.reset();
     },
   },
 
@@ -408,24 +409,45 @@ export default {
 
   watch: {
     "model.gestor"(val) {
+      if (val === null) {
+        return;
+      }
       this.model.gestor = val.toUpperCase();
     },
     "model.usuario_de_red"(val) {
+      if (val === null) {
+        return;
+      }
       this.model.usuario_de_red = val.toUpperCase();
     },
     "model.nombre_asesor"(val) {
+      if (val === null) {
+        return;
+      }
       this.model.nombre_asesor = val.toUpperCase();
     },
     "model.team_leader"(val) {
+      if (val === null) {
+        return;
+      }
       this.model.team_leader = val.toUpperCase();
     },
     "model.gerente"(val) {
+      if (val === null) {
+        return;
+      }
       this.model.gerente = val.toUpperCase();
     },
     "model.marcacion"(val) {
+      if (val === null) {
+        return;
+      }
       this.model.marcacion = val.toUpperCase();
     },
     "model.campo_observacion"(val) {
+      if (val === null) {
+        return;
+      }
       this.model.campo_observacion = val.toUpperCase();
     },
   },
