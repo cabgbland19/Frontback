@@ -94,10 +94,29 @@ export default {
     },
   },
   computed: {
-    ...mapState("localStorage", ["token"]),
+    ...mapState("localStorage", ["token", "username"]),
 
     itemsDataGestion() {
-      return this.items.filter((v) => v.is_active === false);
+      const { campaign } = this.username;
+      return this.items.filter((v) => {
+        let item;
+
+        if (v.is_active === false) {
+          if (campaign === 1) {
+            if (v.level === "Segundo_anillo") {
+              item = v;
+            }
+          }
+
+          if (campaign === 2) {
+            if (v.level === "Tercer anillo") {
+              item = v;
+            }
+          }
+        }
+
+        return item;
+      });
     },
   },
 };

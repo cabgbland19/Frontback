@@ -398,15 +398,16 @@ export default {
 
     transformText() {
       return (
+        this.notas_gtc !== null &&
         this.notas_gtc[0] +
-        this.notas_gtc.slice(1, this.notas_gtc.length).toLowerCase()
+          this.notas_gtc.slice(1, this.notas_gtc.length).toLowerCase()
       );
     },
   },
 
   created() {
     this.model.cuenta = this.cuenta;
-    this.model.gestor = this.username.username;
+    this.model.gestor = this.username.name + " " + this.username.last_name;
   },
 
   watch: {
