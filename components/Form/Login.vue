@@ -1,14 +1,14 @@
 <template>
   <v-form @submit.prevent="sendform" v-model="isFormValid">
-    <v-row>
-      <v-col cols="12">
+    <v-row justify="center">
+      <v-col cols="7">
         <Input
           label="Usuario"
           :rules="rules.user"
           :model.sync="user.username"
         />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="7">
         <Input
           label="Contraseña"
           :rules="rules.password"
@@ -16,7 +16,7 @@
           :model.sync="user.password"
         />
       </v-col>
-      <v-col cols="12" class="d-flex justify-center">
+      <v-col cols="7" class="d-flex justify-center">
         <Button label="Ingresar" :disabled="!isFormValid" type="submit" />
       </v-col>
     </v-row>
