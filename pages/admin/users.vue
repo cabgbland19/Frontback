@@ -70,6 +70,9 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import { LoginController } from "~/controllers/login.controller";
+
 export default {
   layout: "empty",
   middleware: "auth",
@@ -78,6 +81,18 @@ export default {
     return {
       viewTitle: "Usuarios",
     };
+  },
+
+  computed: {
+    ...mapState("localStorage", ["token", "username"]),
+  },
+
+  methods: {
+    postLogout: LoginController.post.logout,
+
+    logout() {
+      this.postLogout(this.token);
+    },
   },
 };
 </script>
