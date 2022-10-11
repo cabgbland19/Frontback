@@ -3,7 +3,7 @@ import { Sweetalert } from "~/assets/sweetalert";
 export const SubmitController = {
   post: {
     gestion: async (payload) => {
-      const { data } = await $nuxt.$api.post("bases/enviar/", payload);
+      const { data } = await $nuxt.$api.post("bases/enviar/gtc", payload);
 
       if (data) {
         Sweetalert.alert({

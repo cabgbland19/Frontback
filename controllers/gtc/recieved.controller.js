@@ -18,7 +18,7 @@ export const RecievedController = {
   //   },
   get: {
     recievedbase: async () => {
-      const { data } = await $nuxt.$api.get("bases/recibida/");
+      const { data } = await $nuxt.$api.get("bases/recibida/gtc");
       return data;
     },
   },
@@ -26,7 +26,7 @@ export const RecievedController = {
     recievedbase: async (payload) => {
       payload.is_active = true;
       const { data } = await $nuxt.$api.put(
-        `bases/recibida/${payload.id}/`,
+        `bases/recibida/gtc/${payload.id}/`,
         payload
       );
       console.log(

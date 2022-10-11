@@ -15,7 +15,7 @@
         </v-col>
         <v-col cols="12" class="text-center px-15">
           <h3 class="primary--text">Nota</h3>
-          <span>{{ notas_gtc }}</span>
+          <span>{{ transformText }}</span>
         </v-col>
       </v-row>
     </v-col>
@@ -395,6 +395,13 @@ export default {
   computed: {
     ...mapState("app", ["cuenta", "periodo", "notas_gtc"]),
     ...mapState("localStorage", ["username"]),
+
+    transformText() {
+      return (
+        this.notas_gtc[0] +
+        this.notas_gtc.slice(1, this.notas_gtc.length).toLowerCase()
+      );
+    },
   },
 
   created() {
