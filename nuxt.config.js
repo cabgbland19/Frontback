@@ -20,7 +20,7 @@ export default {
       { hid: "description", name: "description", content: "" },
       { name: "format-detection", content: "telephone=no" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/GB.ico" }],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/GBO.ico" }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

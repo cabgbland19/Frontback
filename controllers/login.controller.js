@@ -13,7 +13,12 @@ export const LoginController = {
           key: "username",
           value: data.username,
         });
-        $nuxt.$router.push({ name: "management" });
+
+        if (data.username.rol === "admin") {
+          $nuxt.$router.push({ name: "admin-users" });
+        } else {
+          $nuxt.$router.push({ name: "management" });
+        }
       } catch (error) {
         Sweetalert.alert({
           icon: "error",
