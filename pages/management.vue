@@ -14,7 +14,11 @@
         <v-icon right> mdi-exit-run </v-icon>
       </v-btn>
     </v-col>
-    <v-col cols="12" class="d-flex justify-center">
+    <v-col
+      cols="12"
+      class="d-flex justify-center align-center"
+      style="height: calc(100vh - 90px)"
+    >
       <div class="text-center">
         <v-card
           width="350"
