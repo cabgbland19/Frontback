@@ -101,6 +101,8 @@ export default {
     ...mapState("localStorage", ["token", "username"]),
 
     itemsDataGestion() {
+      if (!this.username) return [];
+
       const { campaign } = this.username;
       return this.items.filter((v) => {
         let item;

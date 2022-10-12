@@ -15,3 +15,9 @@
     </v-main>
   </v-app>
 </template>
+
+<script>
+export default {
+  name: "layoutLogin",
+};
+</script>

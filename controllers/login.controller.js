@@ -14,7 +14,7 @@ export const LoginController = {
           value: data.username,
         });
 
-        if (data.username.rol === "admin") {
+        if (data.username.rol === "ADMIN") {
           $nuxt.$router.push({ name: "admin-users" });
         } else {
           $nuxt.$router.push({ name: "management" });
