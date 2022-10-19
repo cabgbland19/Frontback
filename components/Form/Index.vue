@@ -2,6 +2,7 @@
   <div>
     <FormLogin v-if="nameForm === 'login'" />
     <FormManage v-if="nameForm === 'manage'" />
+    <FormUser v-if="nameForm === 'user'" />
   </div>
 </template>
 

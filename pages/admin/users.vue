@@ -31,6 +31,23 @@
               style="box-shadow: 0px 2px 2px 0px rgb(17 120 100)"
             >
               <v-row class="pa-5">
+                <!-- Menu flotante -->
+                <v-col class="d-flex justify-end mb-n10">
+                  <MenuFloat>
+                    <v-list>
+                      <v-list-item>
+                        <!-- <Button
+                          :isIcon="true"
+                          color="#F39C12"
+                          iconText="mdi-pencil"
+                          :action="edit(user)"
+                        /> -->
+
+                        <v-btn @click="edit(user)">Editar </v-btn>
+                      </v-list-item>
+                    </v-list>
+                  </MenuFloat>
+                </v-col>
                 <!-- Nombre -->
                 <v-col cols="12" class="text-center">
                   <span class="primary--text">Nombre</span> <br />
@@ -74,11 +91,13 @@
         </template>
       </v-row>
     </v-col>
+    <!-- modal formulario -->
+    <Dialog />
   </v-row>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 import { UsersController } from "~/controllers/user.controller";
 import { LoginController } from "~/controllers/login.controller";
 
@@ -100,6 +119,7 @@ export default {
 
   computed: {
     ...mapState("localStorage", ["token", "username"]),
+    ...mapGetters("user.store", ["editedUser"]),
 
     // filterItemsUsers() {
     //   const { campaign } = this.username;
@@ -107,11 +127,24 @@ export default {
   },
 
   methods: {
+    ...mapActions("user.store", ["actUpdateValue"]),
     getUsers: UsersController.get.users,
+    putUser: UsersController.put.user,
     postLogout: LoginController.post.logout,
 
     logout() {
       this.postLogout(this.token);
+    },
+
+    edit(user) {
+      $nuxt.$emit("changeDialog", true);
+      this.actUpdateValue({ key: "editedUser", value: user });
+      // this.editedUser = user;
+      // $nuxt.$emit("userInfo", user);
+      // $nuxt.$store.dispatch("app/actUpdateValue", {
+      //   key: "isDialog",
+      //   value: true,
+      // });
     },
   },
 };

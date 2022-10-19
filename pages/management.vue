@@ -101,20 +101,21 @@ export default {
     ...mapState("localStorage", ["token", "username"]),
 
     itemsDataGestion() {
+      console.log("debug");
       if (!this.username) return [];
 
-      const { campaign } = this.username;
+      const { cost_center } = this.username;
       return this.items.filter((v) => {
         let item;
 
         if (v.is_active === false) {
-          if (campaign === 1) {
+          if (cost_center === 160) {
             if (v.level === "Segundo_anillo") {
               item = v;
             }
           }
 
-          if (campaign === 2) {
+          if (cost_center === 162) {
             if (v.level === "Tercer anillo") {
               item = v;
             }

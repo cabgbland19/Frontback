@@ -1,3 +1,5 @@
+import { Sweetalert } from "~/assets/sweetalert";
+
 export const UsersController = {
   //   post: {
   //     login: async (payload) => {
@@ -22,11 +24,21 @@ export const UsersController = {
       return data.rows;
     },
   },
-  //   put: {
-  //     recievedbase: async (payload) => {
-  //       payload.is_active = true;
+  put: {
+    user: async (payload) => {
+      const { data } = await $nuxt.$api.put(
+        `users/user/${payload.id}/`,
+        payload
+      );
 
-  //       await $nuxt.$api.put(`bases/recibida/gtc/${payload.id}/`, payload);
-  //     },
-  //   },
+      if (data) {
+        $nuxt.$emit("changeDialog", false);
+        Sweetalert.alert({
+          title: "Excelente!",
+          text: "Usuario actualizado",
+          timer: 1500,
+        });
+      }
+    },
+  },
 };
