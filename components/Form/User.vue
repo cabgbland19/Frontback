@@ -13,13 +13,13 @@
           :model.sync="userItemLastName"
       /></v-col>
       <!-- Campaña -->
-      <v-col cols="12"
+      <!-- <v-col cols="12"
         ><Select
           label="Campaña"
           :items="itemsSelectCampaign"
           :rules="rules.campaign"
           :model.sync="userItemCostCenter"
-      /></v-col>
+      /></v-col> -->
       <!-- Correo -->
       <v-col cols="12">
         <Input
@@ -37,18 +37,23 @@
           :model.sync="userItemRol"
       /></v-col>
       <!-- Contraseña -->
-      <v-col cols="12">
+      <v-col cols="12" class="text-center">
         <Input
+          v-if="!userItem.id || isNewPassword"
           label="Contraseña"
+          :rules="rules.password"
           :model.sync="userItemPassword"
           type="password"
         />
+        <Button v-else class="mb-4" :action="() => (isNewPassword = true)">
+          <v-icon left>mdi-key</v-icon>Nueva contraseña
+        </Button>
       </v-col>
       <!-- action -->
       <v-col cols="12" class="d-flex justify-end">
         <Button label="Cancelar" outlined :action="cancelAction" />
         <Button
-          label="Editar"
+          :label="userItem.id ? 'Editar' : 'Crear'"
           class="ml-4"
           type="submit"
           :disabled="!isFormValid"
@@ -59,6 +64,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Regex from "~/plugins/regex.js";
 import Select from "../Select.vue";
 import { VModelUserInterface } from "~/interfaces/user.interface";
@@ -86,6 +92,7 @@ export default {
         ],
         // userName: [(v) => !!v || "El campo cuenta es requerido"],
         rol: [(v) => !!v || "El rol es requerido"],
+        password: [(v) => !!v || "La contraseña es requerida"],
       },
       itemsSelectRol: [
         {
@@ -107,32 +114,44 @@ export default {
           value: 162,
         },
       ],
+      isNewPassword: false,
     };
   },
 
   methods: {
     putUser: UsersController.put.user,
+    postUser: UsersController.post.user,
 
     cancelAction() {
-      $nuxt.$emit("changeDialog", false);
-      // this.$refs.form.reset();
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "isDialog",
+        value: false,
+      });
     },
     sendform() {
-      this.putUser(this.userItem);
+      if (this.userItem.id) {
+        this.putUser(this.userItem);
+      } else {
+        this.postUser(this.userItem);
+      }
     },
-  },
-
-  updated() {
-    $nuxt.$on("userInfo", (val) => {
-      this.model = val;
-    });
   },
 
   computed: {
+    ...mapState("app", ["isDialog"]),
     ...propertiesGenerator([...VModelUserInterface], {
       path: "user.store",
       mut: "user.store/setProperty",
     }),
+  },
+
+  watch: {
+    isDialog(val) {
+      this.isNewPassword = false;
+      if (!this.userItem.id && val) {
+        this.$refs.form.reset();
+      }
+    },
   },
 };
 </script>

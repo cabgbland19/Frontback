@@ -7,6 +7,7 @@
     :type="type"
     :icon="isIcon"
     :disabled="disabled"
+    :fab="fab"
   >
     <template v-if="isIcon">
       <v-icon v-text="iconText" />
@@ -14,6 +15,7 @@
     <template v-else>
       {{ label }}
     </template>
+    <slot />
   </v-btn>
 </template>
 
@@ -51,6 +53,10 @@ export default {
     color: {
       type: String,
       default: "primary",
+    },
+    fab: {
+      type: Boolean,
+      default: false,
     },
   },
 };

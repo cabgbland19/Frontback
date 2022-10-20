@@ -1,8 +1,10 @@
 <template>
-  <v-dialog v-model="isDialog" persistent max-width="511px">
+  <v-dialog v-model="localIsDialog" persistent max-width="511px">
     <v-card rounded="xl">
       <v-card-title class="mb-2">
-        <span class="text-h5">Editar usuario</span>
+        <span class="text-h5"
+          >{{ userItem.id ? "Editar" : "Nuevo" }} usuario</span
+        >
       </v-card-title>
       <v-card-text>
         <Form nameForm="user" />
@@ -12,7 +14,10 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
+import { propertiesGenerator } from "~/plugins/helpers";
+import { VModelUserInterface } from "~/interfaces/user.interface";
+
+import { mapState } from "vuex";
 
 export default {
   // props: {
@@ -23,26 +28,31 @@ export default {
   // },
 
   data: () => ({
-    isDialog: false,
+    localIsDialog: false,
   }),
+  computed: {
+    ...mapState("app", ["isDialog"]),
 
-  created() {
-    $nuxt.$on("changeDialog", (val) => {
-      this.isDialog = val;
-    });
+    ...propertiesGenerator([...VModelUserInterface], {
+      path: "user.store",
+      mut: "user.store/setProperty",
+    }),
   },
 
-  // watch: {
-  //   isDialog(val) {
-  //     this.localIsDialog = val;
-  //   },
-  //   localIsDialog(val) {
-  //     this.$emit("update:isDialog", val);
-  //   },
-  // },
+  created() {
+    // $nuxt.$on("changeDialog", (val) => {
+    //   this.localIsDialog = val;
+    // });
+    // this.isDialog = true;
+  },
 
-  // computed: {
-  //   ...mapState("app", ["isDialog"]),
-  // },
+  watch: {
+    isDialog(val) {
+      this.localIsDialog = val;
+    },
+    // localIsDialog(val) {
+    //   this.$emit("update:isDialog", val);
+    // },
+  },
 };
 </script>

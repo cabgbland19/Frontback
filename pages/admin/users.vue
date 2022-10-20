@@ -93,6 +93,14 @@
     </v-col>
     <!-- modal formulario -->
     <Dialog />
+    <!-- Boton de agregar -->
+    <Button
+      :fab="true"
+      style="position: fixed; right: 10px; bottom: 10px"
+      :action="edit"
+    >
+      <v-icon dark> mdi-plus </v-icon>
+    </Button>
   </v-row>
 </template>
 
@@ -127,9 +135,9 @@ export default {
   },
 
   methods: {
-    ...mapActions("user.store", ["actUpdateValue"]),
+    ...mapActions("user.store", ["actUpdateValue", "actResetState"]),
+    // ...mapActions("app", ["actUpdateValue"]),
     getUsers: UsersController.get.users,
-    putUser: UsersController.put.user,
     postLogout: LoginController.post.logout,
 
     logout() {
@@ -137,14 +145,16 @@ export default {
     },
 
     edit(user) {
-      $nuxt.$emit("changeDialog", true);
-      this.actUpdateValue({ key: "editedUser", value: user });
-      // this.editedUser = user;
-      // $nuxt.$emit("userInfo", user);
-      // $nuxt.$store.dispatch("app/actUpdateValue", {
-      //   key: "isDialog",
-      //   value: true,
-      // });
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "isDialog",
+        value: true,
+      });
+      // $nuxt.$emit("changeDialog", true);
+      if (user) {
+        this.actUpdateValue({ key: "editedUser", value: user });
+      } else {
+        this.actResetState();
+      }
     },
   },
 };

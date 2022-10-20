@@ -2,10 +2,10 @@ export const UserInterface = {
   name: null,
   last_name: null,
   email: null,
-  username: null,
+  // username: null,
   password: null,
   id_rol: null,
-  cost_center: null,
+  // cost_center: null,
   is_superuser: true,
 };
 
@@ -33,12 +33,12 @@ export const VModelUserInterface = [
     twoKey: "email",
     defaultValue: UserInterface.email,
   },
-  {
-    property: "userItemUsername",
-    oneKey: "editedUser",
-    twoKey: "username",
-    defaultValue: UserInterface.username,
-  },
+  // {
+  //   property: "userItemUsername",
+  //   oneKey: "editedUser",
+  //   twoKey: "username",
+  //   defaultValue: UserInterface.username,
+  // },
   {
     property: "userItemPassword",
     oneKey: "editedUser",
@@ -51,12 +51,12 @@ export const VModelUserInterface = [
     twoKey: "id_rol",
     defaultValue: UserInterface.id_rol,
   },
-  {
-    property: "userItemCostCenter",
-    oneKey: "editedUser",
-    twoKey: "cost_center",
-    defaultValue: UserInterface.cost_center,
-  },
+  // {
+  //   property: "userItemCostCenter",
+  //   oneKey: "editedUser",
+  //   twoKey: "cost_center",
+  //   defaultValue: UserInterface.cost_center,
+  // },
   {
     property: "userItemIsSuperuser",
     oneKey: "editedUser",
