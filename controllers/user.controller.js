@@ -11,6 +11,8 @@ export const UsersController = {
       payload.cost_center =
         $nuxt.$store.state.localStorage.username.cost_center;
 
+      // payload.is_active = true;
+
       try {
         const { data } = await $nuxt.$api.post(`users/user/`, payload);
 
@@ -63,6 +65,7 @@ export const UsersController = {
       );
 
       if (data) {
+        $nuxt.refresh();
         $nuxt.$store.dispatch("user.store/actResetState");
         $nuxt.$store.dispatch("app/actUpdateValue", {
           key: "isDialog",

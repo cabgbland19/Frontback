@@ -116,7 +116,7 @@ export default {
           }
 
           if (cost_center === 162) {
-            if (v.level === "Tercer anillo") {
+            if (v.level === "Tercer_anillo") {
               item = v;
             }
           }

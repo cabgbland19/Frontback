@@ -46,9 +46,16 @@
           type="password"
         />
         <Button v-else class="mb-4" :action="() => (isNewPassword = true)">
-          <v-icon left>mdi-key</v-icon>Nueva contraseña
+          <v-icon left>mdi-key</v-icon>Cambiar contraseña
         </Button>
       </v-col>
+      <!-- Activar y desactivar -->
+      <v-col cols="12" v-if="userItem.id"
+        ><Select
+          label="Estado"
+          :items="itemsSelectIsActive"
+          :model.sync="userItemIsActive"
+      /></v-col>
       <!-- action -->
       <v-col cols="12" class="d-flex justify-end">
         <Button label="Cancelar" outlined :action="cancelAction" />
@@ -103,6 +110,10 @@ export default {
           text: "BACKOFFICE GTC",
           value: 2,
         },
+        {
+          text: "BACKOFFICE GESUCS",
+          value: 3,
+        },
       ],
       itemsSelectCampaign: [
         {
@@ -114,6 +125,20 @@ export default {
           value: 162,
         },
       ],
+      itemsSelectIsActive: [
+        {
+          text: "ACTIVAR",
+          value: true,
+        },
+        {
+          text: "DESACTIVAR",
+          value: false,
+        },
+        // {
+        //   text: "DESACTIVAR",
+        //   value: false,
+        // },
+      ],
       isNewPassword: false,
     };
   },
@@ -123,6 +148,7 @@ export default {
     postUser: UsersController.post.user,
 
     cancelAction() {
+      $nuxt.$store.dispatch("user.store/actResetState");
       $nuxt.$store.dispatch("app/actUpdateValue", {
         key: "isDialog",
         value: false,

@@ -31,6 +31,16 @@
               style="box-shadow: 0px 2px 2px 0px rgb(17 120 100)"
             >
               <v-row class="pa-5">
+                <v-col>
+                  <v-chip
+                    class="ma-2"
+                    :color="user.is_active ? 'success' : 'error'"
+                    outlined
+                  >
+                    <v-icon left> mdi-brightness-1 </v-icon>
+                    {{ user.is_active ? "Activo" : "Inactivo" }}
+                  </v-chip>
+                </v-col>
                 <!-- Menu flotante -->
                 <v-col class="d-flex justify-end mb-n10">
                   <MenuFloat>
@@ -108,6 +118,8 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 import { UsersController } from "~/controllers/user.controller";
 import { LoginController } from "~/controllers/login.controller";
+import { VModelUserInterface } from "~/interfaces/user.interface";
+import { propertiesGenerator } from "~/plugins/helpers";
 
 export default {
   layout: "empty",
@@ -128,6 +140,11 @@ export default {
   computed: {
     ...mapState("localStorage", ["token", "username"]),
     ...mapGetters("user.store", ["editedUser"]),
+
+    ...propertiesGenerator([...VModelUserInterface], {
+      path: "user.store",
+      mut: "user.store/setProperty",
+    }),
 
     // filterItemsUsers() {
     //   const { campaign } = this.username;
@@ -153,6 +170,9 @@ export default {
       if (user) {
         this.actUpdateValue({ key: "editedUser", value: user });
       } else {
+        this.$nextTick(() => {
+          this.userItemIsActive = true;
+        });
         this.actResetState();
       }
     },

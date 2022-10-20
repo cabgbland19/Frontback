@@ -26,7 +26,7 @@ export default {
       default: () => [],
     },
     model: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       default: null,
     },
   },

@@ -5,6 +5,7 @@ export const UserInterface = {
   // username: null,
   password: null,
   id_rol: null,
+  is_active: false,
   // cost_center: null,
   is_superuser: true,
 };
@@ -50,6 +51,12 @@ export const VModelUserInterface = [
     oneKey: "editedUser",
     twoKey: "id_rol",
     defaultValue: UserInterface.id_rol,
+  },
+  {
+    property: "userItemIsActive",
+    oneKey: "editedUser",
+    twoKey: "is_active",
+    defaultValue: UserInterface.is_active,
   },
   // {
   //   property: "userItemCostCenter",
