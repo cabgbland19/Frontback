@@ -22,6 +22,9 @@ Regex.onlylettersAndNumbers = /^[0-9a-zñA-ZÑ]+$/;
 /* Solo letras, numeros y espacios */
 Regex.onlylettersNumbersAndSpaces = /^[0-9a-zñA-ZÑ ]+$/;
 
+/* Solo textarea */
+Regex.onlyTextarea = /^[;.,0-9a-zñA-ZÑ ]+$/;
+
 /* Email */
 Regex.onlyEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 

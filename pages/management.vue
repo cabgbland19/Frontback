@@ -43,7 +43,7 @@
   </v-row>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { RecievedController } from "~/controllers/gtc/recieved.controller";
 import { Sweetalert } from "~/assets/sweetalert";
 import { LoginController } from "~/controllers/login.controller";
@@ -51,7 +51,6 @@ import { LoginController } from "~/controllers/login.controller";
 export default {
   layout: "empty",
   middleware: "auth",
-
   data() {
     return {
       viewTitle: "Gestion base de datos",
@@ -59,10 +58,12 @@ export default {
     };
   },
   async fetch() {
-    const data = await this.getRecievedBase();
+    const data = await this.getRecievedBase(this.getBaseByRol());
     this.items = data.rows;
   },
   methods: {
+    ...mapActions("manageGESUCS", ["actUpdateValue", "actResetState"]),
+
     getRecievedBase: RecievedController.get.recievedbase,
     putRecievedBase: RecievedController.put.recievedbase,
     postLogout: LoginController.post.logout,
@@ -70,15 +71,9 @@ export default {
     manage() {
       const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
       if (register) {
-        const { cuenta, periodo, notas_gtc } = register;
-        const dataGestion = { cuenta, periodo, notas_gtc };
-        for (const key in dataGestion) {
-          $nuxt.$store.dispatch("app/actUpdateValue", {
-            key: key,
-            value: dataGestion[key],
-          });
-        }
-        this.putRecievedBase(register);
+        this.actUpdateValue({ key: "editedManageGESUCS", value: register });
+
+        this.putRecievedBase(register, this.getBaseByRol());
         $nuxt.$router.push({ name: "managementForm" });
       } else {
         Sweetalert.alert({
@@ -96,34 +91,56 @@ export default {
     logout() {
       this.postLogout(this.token);
     },
+    getBaseByRol() {
+      const { rol, cost_center } = this.username;
+      let base;
+
+      if (rol === "BACKOFFICE GESUCS") {
+        if (cost_center === 160) {
+          base = "gesucs";
+        }
+
+        if (cost_center === 162) {
+          base = "gesucs";
+        }
+      }
+
+      if (rol === "BACKOFFICE GTC") {
+        if (cost_center === 160) {
+          base = "gtc";
+        }
+
+        if (cost_center === 162) {
+          base = "gtc";
+        }
+      }
+
+      return base;
+    },
   },
   computed: {
     ...mapState("localStorage", ["token", "username"]),
 
     itemsDataGestion() {
-      console.log("debug");
       if (!this.username) return [];
 
-      const { cost_center } = this.username;
       return this.items.filter((v) => {
         let item;
 
         if (v.is_active === false) {
-          if (cost_center === 160) {
-            if (v.level === "Segundo_anillo") {
-              item = v;
-            }
-          }
+          const campaign = this.username.campaign
+            .split(" ")
+            .join("_")
+            .toLowerCase();
 
-          if (cost_center === 162) {
-            if (v.level === "Tercer_anillo") {
-              item = v;
-            }
+          if (v.level.toLowerCase() === campaign) {
+            item = v;
           }
         }
 
         return item;
       });
+      // return this.items;
     },
   },
 };

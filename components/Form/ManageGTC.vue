@@ -1,5 +1,6 @@
 <template>
   <v-row class="ma-0">
+    <!-- Cuadro informacion -->
     <v-col
       class="d-flex justify-center align-center"
       style="background: #1178640f"
@@ -9,16 +10,21 @@
           <h3 class="primary--text">MCH Cuenta</h3>
           <span>{{ cuenta }}</span>
         </v-col>
-        <v-col cols="12" class="mb-5 text-center">
+        <v-col cols="12" class="mb-5 text-center" v-if="periodo">
           <h3 class="primary--text">Periodo</h3>
           <span>{{ periodo }}</span>
         </v-col>
-        <v-col cols="12" class="text-center px-15">
+        <v-col
+          cols="12"
+          class="text-center px-15"
+          v-if="transformText !== null"
+        >
           <h3 class="primary--text">Nota</h3>
           <span>{{ transformText }}</span>
         </v-col>
       </v-row>
     </v-col>
+    <!-- Formulario -->
     <v-col style="height: 100vh; overflow-y: scroll">
       <v-form ref="form" @submit.prevent="sendform" v-model="isFormValid">
         <!-- Informacion del asesor -->
@@ -397,6 +403,9 @@ export default {
     ...mapState("localStorage", ["username"]),
 
     transformText() {
+      if (this.notas_gtc === undefined) {
+        return null;
+      }
       return (
         this.notas_gtc !== null &&
         this.notas_gtc[0] +

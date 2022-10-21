@@ -5,6 +5,8 @@
     outlined
     :rules="rules"
     v-model="localModel"
+    maxlenght="400"
+    counter
   />
 </template>
 

@@ -17,16 +17,16 @@ export const RecievedController = {
   //     },
   //   },
   get: {
-    recievedbase: async () => {
-      const { data } = await $nuxt.$api.get("bases/recibida/gtc");
+    recievedbase: async (base) => {
+      const { data } = await $nuxt.$api.get(`bases/recibida/${base}`);
       return data;
     },
   },
   put: {
-    recievedbase: async (payload) => {
+    recievedbase: async (payload,base) => {
       payload.is_active = true;
 
-      await $nuxt.$api.put(`bases/recibida/gtc/${payload.id}/`, payload);
+      await $nuxt.$api.put(`bases/recibida/${base}/${payload.id}/`, payload);
     },
   },
 };
