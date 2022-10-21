@@ -23,7 +23,8 @@ export const RecievedController = {
     },
   },
   put: {
-    recievedbase: async (payload,base) => {
+    recievedbase: async (payload, base) => {
+      delete payload.is_active;
       payload.is_active = true;
 
       await $nuxt.$api.put(`bases/recibida/${base}/${payload.id}/`, payload);
