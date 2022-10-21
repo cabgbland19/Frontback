@@ -3,6 +3,8 @@
     v-model="localModel"
     rounded
     outlined
+    :maxlength="maxlength"
+    :counter="maxlength ? true : false"
     :label="label"
     :readonly="readonly"
     :rules="rules"
@@ -17,6 +19,10 @@ export default {
     label: {
       type: String,
       default: "label",
+    },
+    maxlength: {
+      type: String,
+      default: null,
     },
     readonly: {
       type: Boolean,

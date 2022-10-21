@@ -33,31 +33,34 @@
             ><h2 class="primary--text">Informacion del asesor</h2>
           </v-col>
           <v-col cols="6"
-            ><Input label="Gestor" :readonly="true" :model.sync="model.gestor"
+            ><Input
+              label="Gestor"
+              :readonly="true"
+              :model.sync="manageGTCitemGestor"
           /></v-col>
           <v-col cols="6"
             ><Input
               label="Usuario de red"
               :rules="rules.userRed"
-              :model.sync="model.usuario_de_red"
+              :model.sync="manageGTCitemNetworkUser"
           /></v-col>
           <v-col cols="6"
             ><Input
               label="Nombre del asesor"
               :rules="rules.asesorName"
-              :model.sync="model.nombre_asesor"
+              :model.sync="manageGTCitemAsesorName"
           /></v-col>
           <v-col cols="6"
             ><Input
               label="Team leader"
               :rules="rules.teamLeader"
-              :model.sync="model.team_leader"
+              :model.sync="manageGTCitemTeamleader"
           /></v-col>
           <v-col cols="6">
             <Input
               label="Gerente"
               :rules="rules.boss"
-              :model.sync="model.gerente"
+              :model.sync="manageGTCitemBoss"
           /></v-col>
         </v-row>
         <!-- Informacion de la gestion-->
@@ -66,28 +69,31 @@
             ><h2 class="primary--text">Informacion de la gestion</h2>
           </v-col>
           <v-col cols="6"
-            ><Input label="Cuenta" :readonly="true" :model.sync="model.cuenta"
+            ><Input
+              label="Cuenta"
+              :readonly="true"
+              :model.sync="manageGTCitemAccount"
           /></v-col>
           <v-col cols="6"
             ><Select
               label="Contacto"
               :rules="rules.contact"
               :items="itemsContacts"
-              :model.sync="model.contacto"
+              :model.sync="manageGTCitemContact"
             ></Select
           ></v-col>
           <v-col cols="6"
             ><Input
               label="Id de llamada"
               :rules="rules.callId"
-              :model.sync="model.id_llamada"
+              :model.sync="manageGTCitemCallId"
           /></v-col>
           <v-col cols="6"
             ><Select
               label="GTC aplica"
               :rules="rules.gtcApply"
               :items="itemsApplyGtc"
-              :model.sync="model.gtcaplica"
+              :model.sync="manageGTCitemApplyGtc"
             ></Select
           ></v-col>
           <v-col cols="6"
@@ -95,21 +101,22 @@
               label="Motivo GTC"
               :rules="rules.gtcReason"
               :items="itemsGtcReason"
-              :model.sync="model.motivo_gtc"
+              :model.sync="manageGTCiteMotiveGtc"
             ></Select
           ></v-col>
           <v-col cols="6">
             <Input
               label="Marcacion"
+              maxlength="9"
               :rules="rules.mark"
-              :model.sync="model.marcacion"
+              :model.sync="manageGTCitemMark"
           /></v-col>
           <v-col cols="6"
             ><Select
               label="Solucionado"
               :rules="rules.solution"
               :items="itemsSolution"
-              :model.sync="model.solucionado"
+              :model.sync="manageGTCitemSolution"
             ></Select
           ></v-col>
           <v-col cols="6"
@@ -117,20 +124,20 @@
               label="Tipo de solucion"
               :rules="rules.typeSolution"
               :items="itemsTypeSolution"
-              :model.sync="model.tipo_solucion"
+              :model.sync="manageGTCItemTypeSolution"
             ></Select
           ></v-col>
           <v-col cols="6">
             <Input
               label="Fecha solucion"
               :readonly="true"
-              :model.sync="model.fecha_solcionado"
+              :model.sync="manageGTCitemSolutionDate"
           /></v-col>
           <v-col cols="12">
             <Textarea
               label="Observacion"
               :rules="rules.observation"
-              :model.sync="model.campo_observacion"
+              :model.sync="manageGTCitemObservation"
             ></Textarea
           ></v-col>
         </v-row>
@@ -143,19 +150,19 @@
             ><Input
               label="Valor diferencial"
               :rules="rules.differenceValue"
-              :model.sync="model.valor_diferencial"
+              :model.sync="manageGTCitemDifferenceValue"
           /></v-col>
           <v-col cols="6"
             ><Input
               label="Valor Mensual"
               :rules="rules.monthlyValue"
-              :model.sync="model.valor_mensual"
+              :model.sync="manageGTCitemMonthValue"
           /></v-col>
           <v-col cols="6"
             ><Input
               label="Meses ajuste"
               :rules="rules.monthsAdjustments"
-              :model.sync="model.meses_ajuste"
+              :model.sync="manageGTCitemMonthadjust"
           /></v-col>
           <v-col cols="12">
             <Button
@@ -175,6 +182,8 @@
 import { mapState } from "vuex";
 import { SubmitController } from "~/controllers/gtc/submit.controller";
 import Regex from "~/plugins/regex.js";
+import { VModelManageGTC } from "~/interfaces/manageGTC.interface";
+import { propertiesGenerator } from "~/plugins/helpers";
 
 export default {
   data() {
@@ -216,8 +225,8 @@ export default {
         observation: [
           (v) => !!v || "El campo Observacion es requerido",
           (v) =>
-            Regex.onlylettersNumbersAndSpaces.test(v) ||
-            "Solo se aceptan letras y numeros",
+            Regex.onlyTextarea.test(v) || "Solo se aceptan letras y numeros",
+          (v) => (!!v && v.length <= 400) || "Maximo 400 caracteres",
         ],
         differenceValue: [
           (v) => !!v || "El campo Valor diferencial es requerido",
@@ -366,26 +375,6 @@ export default {
           value: "NO",
         },
       ],
-      model: {
-        cuenta: null,
-        contacto: null,
-        gtcaplica: null,
-        tipo_solucion: null,
-        motivo_gtc: null,
-        campo_observacion: null,
-        valor_diferencial: null,
-        marcacion: null,
-        solucionado: null,
-        fecha_solcionado: new Date().toISOString().split("T")[0],
-        gestor: null,
-        valor_mensual: null,
-        meses_ajuste: null,
-        id_llamada: null,
-        usuario_de_red: null,
-        nombre_asesor: null,
-        team_leader: null,
-        gerente: null,
-      },
     };
   },
 
@@ -393,14 +382,19 @@ export default {
     postGestion: SubmitController.post.gestion,
 
     sendform() {
-      this.postGestion(this.model);
-      this.$refs.form.reset();
+      this.postGestion(this.manageGTCitem, "gtc");
+      // this.$refs.form.reset();
     },
   },
 
   computed: {
     ...mapState("app", ["cuenta", "periodo", "notas_gtc"]),
     ...mapState("localStorage", ["username"]),
+
+    ...propertiesGenerator([...VModelManageGTC], {
+      path: "manageGTC",
+      mut: "manageGTC/setProperty",
+    }),
 
     transformText() {
       if (this.notas_gtc === undefined) {
@@ -415,52 +409,54 @@ export default {
   },
 
   created() {
-    this.model.cuenta = this.cuenta;
-    this.model.gestor = this.username.name + " " + this.username.last_name;
+    this.manageGTCitemGestor =
+      this.username.name + " " + this.username.last_name;
+
+    this.manageGTCitemAccount = this.cuenta;
   },
 
   watch: {
-    "model.gestor"(val) {
+    manageGTCitemGestor(val) {
       if (val === null) {
         return;
       }
-      this.model.gestor = val.toUpperCase();
+      this.manageGTCitemGestor = val.toUpperCase();
     },
-    "model.usuario_de_red"(val) {
+    manageGTCitemNetworkUser(val) {
       if (val === null) {
         return;
       }
-      this.model.usuario_de_red = val.toUpperCase();
+      this.manageGTCitemNetworkUser = val.toUpperCase();
     },
-    "model.nombre_asesor"(val) {
+    manageGTCitemAsesorName(val) {
       if (val === null) {
         return;
       }
-      this.model.nombre_asesor = val.toUpperCase();
+      this.manageGTCitemAsesorName = val.toUpperCase();
     },
-    "model.team_leader"(val) {
+    manageGTCitemTeamleader(val) {
       if (val === null) {
         return;
       }
-      this.model.team_leader = val.toUpperCase();
+      this.manageGTCitemTeamleader = val.toUpperCase();
     },
-    "model.gerente"(val) {
+    manageGTCitemBoss(val) {
       if (val === null) {
         return;
       }
-      this.model.gerente = val.toUpperCase();
+      this.manageGTCitemBoss = val.toUpperCase();
     },
-    "model.marcacion"(val) {
+    manageGTCitemMark(val) {
       if (val === null) {
         return;
       }
-      this.model.marcacion = val.toUpperCase();
+      this.manageGTCitemMark = val.toUpperCase();
     },
-    "model.campo_observacion"(val) {
+    manageGTCitemObservation(val) {
       if (val === null) {
         return;
       }
-      this.model.campo_observacion = val.toUpperCase();
+      this.manageGTCitemObservation = val.toUpperCase();
     },
   },
 };

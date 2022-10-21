@@ -71,7 +71,18 @@ export default {
     manage() {
       const register = this.itemsDataGestion[this.itemsDataGestion.length - 1];
       if (register) {
-        this.actUpdateValue({ key: "editedManageGESUCS", value: register });
+        const { cuenta, periodo, notas_gtc } = register;
+        const dataGestion = { cuenta, periodo, notas_gtc };
+        for (const key in dataGestion) {
+          $nuxt.$store.dispatch("app/actUpdateValue", {
+            key: key,
+            value: dataGestion[key],
+          });
+        }
+        this.actUpdateValue({
+          key: `editedManage${this.getBaseByRol().toUpperCase()}`,
+          value: register,
+        });
 
         this.putRecievedBase(register, this.getBaseByRol());
         $nuxt.$router.push({ name: "managementForm" });
