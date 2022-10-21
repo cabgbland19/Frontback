@@ -154,6 +154,14 @@ export default {
       // return this.items;
     },
   },
+  watch: {
+    "$fetchState.pending"(val) {
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "isLoading",
+        value: val,
+      });
+    },
+  },
 };
 </script>
 

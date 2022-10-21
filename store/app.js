@@ -3,6 +3,7 @@ export const state = () => ({
   periodo: null,
   notas_gtc: null,
   isDialog: false,
+  isLoading: false,
 });
 
 export const mutations = {

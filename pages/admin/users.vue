@@ -177,6 +177,15 @@ export default {
       }
     },
   },
+
+  watch: {
+    "$fetchState.pending"(val) {
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "isLoading",
+        value: val,
+      });
+    },
+  },
 };
 </script>
 
