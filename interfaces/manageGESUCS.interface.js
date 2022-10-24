@@ -14,6 +14,7 @@ export const ManageGESUCS = {
   correcta: null,
   observacion: null,
   gestor: null,
+  fecha_solucion: new Date().toISOString().split("T")[0],
 };
 
 export const VModelManageGESUCS = [
@@ -111,5 +112,11 @@ export const VModelManageGESUCS = [
     oneKey: "editedManageGESUCS",
     twoKey: "gestor",
     defaultValue: ManageGESUCS.gestor,
+  },
+  {
+    property: "manageGESUCSitemDate",
+    oneKey: "editedManageGESUCS",
+    twoKey: "fecha_solucion",
+    defaultValue: ManageGESUCS.fecha_solucion,
   },
 ];

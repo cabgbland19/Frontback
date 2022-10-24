@@ -3,9 +3,10 @@
     :color="color"
     :outlined="outlined"
     rounded
-    @click="type !== 'submit' && action()"
+    @click="type !== 'submit' && action(param)"
     :type="type"
     :icon="isIcon"
+    :param="param"
     :disabled="disabled"
     :fab="fab"
   >
@@ -45,6 +46,10 @@ export default {
     type: {
       type: String,
       default: "button",
+    },
+    param: {
+      type: Number,
+      default: null,
     },
     iconText: {
       type: String,

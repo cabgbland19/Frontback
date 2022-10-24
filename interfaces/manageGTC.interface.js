@@ -17,6 +17,7 @@ export const ManageGTC = {
   nombre_asesor: null,
   team_leader: null,
   gerente: null,
+  state: false,
 };
 
 export const VModelManageGTC = [
@@ -132,5 +133,11 @@ export const VModelManageGTC = [
     oneKey: "editedManageGTC",
     twoKey: "gerente",
     defaultValue: ManageGTC.gerente,
+  },
+  {
+    property: "manageGTCitemState",
+    oneKey: "editedManageGTC",
+    twoKey: "state",
+    defaultValue: ManageGTC.state,
   },
 ];

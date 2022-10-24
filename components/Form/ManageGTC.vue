@@ -164,10 +164,17 @@
               :rules="rules.monthsAdjustments"
               :model.sync="manageGTCitemMonthadjust"
           /></v-col>
-          <v-col cols="12">
+          <v-col cols="12" class="d-flex justify-end">
             <Button
-              label="Enviar"
-              class="float-right"
+              label="Gestion pendiente"
+              color="warning"
+              :action="sendform"
+              :param="0"
+              class="mr-4"
+              :disabled="!isFormValid"
+            />
+            <Button
+              label="Finalizar gestion"
               type="submit"
               :disabled="!isFormValid"
             />
@@ -381,9 +388,14 @@ export default {
   methods: {
     postGestion: SubmitController.post.gestion,
 
-    sendform() {
+    sendform(val) {
+      if (val === 0) {
+        this.manageGTCitemState = false;
+      } else {
+        this.manageGTCitemState = true;
+      }
       this.postGestion(this.manageGTCitem, "gtc");
-      // this.$refs.form.reset();
+      this.$refs.form.reset();
     },
   },
 
