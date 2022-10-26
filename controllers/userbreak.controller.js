@@ -7,7 +7,7 @@ export const UsersBreakController = {
         "🚀 ~ file: userbreak.controller.js ~ line 6 ~ user: ~ payload",
         payload
       );
-      // const { data } = await $nuxt.$api.post(`users/breakuser/`, payload);
+      const { data } = await $nuxt.$api.post(`users/breakuser/`, payload);
       // console.log(
       //   "🚀 ~ file: userbreak.controller.js ~ line 7 ~ user: ~ data",
       //   data

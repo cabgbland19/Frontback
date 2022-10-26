@@ -166,6 +166,14 @@ export default {
         key: "isDialog",
         value: true,
       });
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "nameFormDialog",
+        value: "user",
+      });
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "widthDialog",
+        value: "500px",
+      });
       // $nuxt.$emit("changeDialog", true);
       if (user) {
         this.actUpdateValue({ key: "editedUser", value: user });

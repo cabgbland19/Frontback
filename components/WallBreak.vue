@@ -62,10 +62,12 @@ export default {
     postBreak: UsersBreakController.post.user,
 
     postOutBreak() {
+      const date = new Date(new Date().setSeconds(-36000));
+      const datebreak = date.toISOString().split("T").join(" ").slice(0, -2);
       this.postBreak({
         user: this.username.name + " " + this.username.last_name,
         state: "entrada break",
-        datetimes: new Date().toISOString().split("T").join(" ").slice(0, -2),
+        datetimes: datebreak,
       });
       this.isLoading = false;
     },

@@ -173,10 +173,13 @@ export default {
       }
     },
     postOutBreak() {
+      const date = new Date(new Date().setSeconds(-36000));
+      const datebreak = date.toISOString().split("T").join(" ").slice(0, -2);
+
       this.postBreak({
         user: this.username.name + " " + this.username.last_name,
         state: "salida break",
-        datetimes: new Date().toISOString().split("T").join(" ").slice(0, -2),
+        datetimes: datebreak,
       });
       $nuxt.$emit("openWallBreak", true);
     },
