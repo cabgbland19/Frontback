@@ -3,6 +3,8 @@ export const state = () => ({
   periodo: null,
   notas_gtc: null,
   isDialog: false,
+  nameFormDialog: null,
+  widthDialog: null,
   isLoading: false,
 });
 

@@ -15,4 +15,20 @@ export const SubmitController = {
       }
     },
   },
+  put: {
+    gestion: async (payload, base) => {
+      await $nuxt.$api.put(`bases/enviar/${base}/${payload.id}/`, payload);
+      $nuxt.refresh();
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "isDialog",
+        value: false,
+      });
+      $nuxt.$store.dispatch("manageGTC/actResetState");
+      Sweetalert.alert({
+        title: "Excelente!",
+        text: "Registro Gestionado",
+        timer: 1500,
+      });
+    },
+  },
 };

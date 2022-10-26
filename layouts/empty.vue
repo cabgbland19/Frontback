@@ -4,6 +4,7 @@
       <Nuxt />
     </v-main>
     <Loading />
+    <WallBreak />
   </v-app>
 </template>
 

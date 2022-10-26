@@ -25,7 +25,7 @@
       </v-row>
     </v-col>
     <!-- Formulario -->
-    <v-col style="height: 100vh; overflow-y: scroll">
+    <v-col class="container-form">
       <v-form ref="form" @submit.prevent="sendform" v-model="isFormValid">
         <!-- Informacion del asesor -->
         <v-row>
@@ -167,6 +167,7 @@
           <v-col cols="12" class="d-flex justify-end">
             <Button
               label="Gestion pendiente"
+              v-if="route !== 'management'"
               color="warning"
               :action="sendform"
               :param="0"
@@ -174,6 +175,13 @@
               :disabled="!isFormValid"
             />
             <Button
+              v-if="route === 'management'"
+              label="Cancelar"
+              :outlined="true"
+              :action="closeDialog"
+            />
+            <Button
+              class="ml-4"
               label="Finalizar gestion"
               type="submit"
               :disabled="!isFormValid"
@@ -387,8 +395,14 @@ export default {
 
   methods: {
     postGestion: SubmitController.post.gestion,
+    putGestion: SubmitController.put.gestion,
 
     sendform(val) {
+      if (this.route === "management") {
+        this.manageGTCitemState = true;
+        this.putGestion(this.manageGTCitem, "gtc");
+        return;
+      }
       if (val === 0) {
         this.manageGTCitemState = false;
       } else {
@@ -397,9 +411,19 @@ export default {
       this.postGestion(this.manageGTCitem, "gtc");
       this.$refs.form.reset();
     },
+    closeDialog() {
+      $nuxt.$store.dispatch("manageGTC/actResetState");
+      $nuxt.$store.dispatch("app/actUpdateValue", {
+        key: "isDialog",
+        value: false,
+      });
+    },
   },
 
   computed: {
+    route() {
+      return $nuxt.$route.name;
+    },
     ...mapState("app", ["cuenta", "periodo", "notas_gtc"]),
     ...mapState("localStorage", ["username"]),
 
@@ -474,4 +498,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.container-form {
+  height: calc(100vh - 200px);
+  overflow-y: scroll;
+}
+.container-form::-webkit-scrollbar {
+  width: 4px; /* Tamaño del scroll en vertical */
+  height: 8px; /* Tamaño del scroll en horizontal */
+}
+.container-form::-webkit-scrollbar-thumb {
+  background: #117864;
+  border-radius: 4px;
+}
+</style>

@@ -1,13 +1,13 @@
 <template>
-  <v-dialog v-model="localIsDialog" persistent max-width="511px">
+  <v-dialog v-model="localIsDialog" persistent :max-width="widthDialog">
     <v-card rounded="xl">
-      <v-card-title class="mb-2">
+      <v-card-title class="mb-2" v-if="route === 'admin-users'">
         <span class="text-h5"
           >{{ userItem.id ? "Editar" : "Nuevo" }} usuario</span
         >
       </v-card-title>
       <v-card-text>
-        <Form nameForm="user" />
+        <Form :nameForm="nameFormDialog" />
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -31,12 +31,16 @@ export default {
     localIsDialog: false,
   }),
   computed: {
-    ...mapState("app", ["isDialog"]),
+    ...mapState("app", ["isDialog", "nameFormDialog", "widthDialog"]),
 
     ...propertiesGenerator([...VModelUserInterface], {
       path: "user.store",
       mut: "user.store/setProperty",
     }),
+
+    route() {
+      return $nuxt.$route.name;
+    },
   },
 
   created() {
